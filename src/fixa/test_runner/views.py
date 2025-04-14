@@ -15,6 +15,7 @@ class TestResult():
         stereo_recording_url (str): The URL of the stereo recording of the test
         error (str | None): The error that occurred during the test
     """
+    call_id: str
     test: Test
     evaluation_results: Optional[EvaluationResponse]
     transcript: List[ChatCompletionMessageParam]

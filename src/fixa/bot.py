@@ -72,6 +72,10 @@ class Bot:
         )
 
         llm = OpenAILLMService(api_key=os.getenv("OPENAI_API_KEY") or "", model="gpt-4o")
+        response = await llm.generate_response()
+        print("\n=== LLM RESPONSE ===\n")
+        print(response)
+        print("\n=== END LLM RESPONSE ===\n")
         llm.register_function("end_call", self.end_call)
 
         tools = [
@@ -104,9 +108,16 @@ class Bot:
                 "content": "end the call if the user says goodbye",
             },
         ]
+        print("\n=== BOT INITIAL MESSAGES ===\n")
+        for msg in self.messages:
+            print(f"Role: {msg['role']}, Content: {msg['content']}\n")
+        print("\n=== END BOT INITIAL MESSAGES ===\n")
 
         context = OpenAILLMContext(self.messages, tools)
         self.context_aggregator = llm.create_context_aggregator(context)
+        print("\n=== SENDING TO LLM ===\n")
+        print(self.messages)
+        print("\n=== END SENDING TO LLM ===\n")
 
         pipeline = Pipeline(
             [
@@ -119,6 +130,10 @@ class Bot:
                 self.context_aggregator.assistant(),
             ]
         )
+        print("\n=== PIPELINE SETUP ===\n")
+        for step in pipeline.steps:
+            print(step)
+        print("\n=== END PIPELINE SETUP ===\n")
 
         self.task = PipelineTask(pipeline, params=PipelineParams(allow_interruptions=True))
 
