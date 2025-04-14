@@ -169,6 +169,7 @@ class TestRunner:
             if status["status"] == "error":
                 test_results.append(
                     TestResult(
+                        call_id=call_id,
                         test=test,
                         evaluation_results=None,
                         transcript=[],
@@ -179,6 +180,7 @@ class TestRunner:
             else:
                 test_results.append(
                     TestResult(
+                        call_id=call_id,
                         test=test,
                         evaluation_results=self._evaluation_results.get(call_id),
                         transcript=status["transcript"] or [],
