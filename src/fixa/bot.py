@@ -72,10 +72,6 @@ class Bot:
         )
 
         llm = OpenAILLMService(api_key=os.getenv("OPENAI_API_KEY") or "", model="gpt-4o")
-        response = await llm.generate_response()
-        print("\n=== LLM RESPONSE ===\n")
-        print(response)
-        print("\n=== END LLM RESPONSE ===\n")
         llm.register_function("end_call", self.end_call)
 
         tools = [
