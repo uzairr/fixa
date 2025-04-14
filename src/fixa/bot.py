@@ -126,11 +126,6 @@ class Bot:
                 self.context_aggregator.assistant(),
             ]
         )
-        print("\n=== PIPELINE SETUP ===\n")
-        for step in pipeline.steps:
-            print(step)
-        print("\n=== END PIPELINE SETUP ===\n")
-
         self.task = PipelineTask(pipeline, params=PipelineParams(allow_interruptions=True))
 
         self.transport.event_handler("on_client_connected")(self.on_client_connected)
